@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>你好,{{name}}!</h1>
+
+  <div>
+    <ul>
+      <!-- each模板语法 -->
+      {{each comments}}
+      <li>{{$value.name}}:{{$value.message}}<span>{{$value.dataTime}}</span></li>
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
+</html>
