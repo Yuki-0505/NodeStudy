@@ -8,7 +8,9 @@ app.engine('html', require('express-art-template'))
 
 // 配置表单解析插件body-parser，配置后req会有body属性
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 // parse application/json
 app.use(bodyParser.json())
 
