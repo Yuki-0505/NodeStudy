@@ -28,10 +28,5 @@ exports.readJson = function (callback) {
  * @param callback function (err)
  */
 exports.writeJson = function (jsonObj, callback) {
-  fs.writeFile(dbPath, JSON.stringify(jsonObj), err => {
-    if (err) {
-      return callback(err)
-    }
-    callback(null)
-  })
+  fs.writeFile(dbPath, JSON.stringify(jsonObj), callback)
 }

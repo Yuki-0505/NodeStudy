@@ -26,6 +26,11 @@ app.use(bodyParser.json())
 // 把路由容器挂载到app服务中
 app.use(router)
 
+// 在最后处理不存在的请求
+app.use((req, res) => {
+  res.render('404.html')
+})
+
 // 监听端口
 app.listen(8000, () => {
     console.log('listening on http://localhost:8000')

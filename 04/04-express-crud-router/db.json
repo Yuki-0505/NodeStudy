@@ -15,13 +15,6 @@
       "hobbies": "football,basketball"
     },
     {
-      "id": 2,
-      "name": "json",
-      "gender": "1",
-      "age": "15",
-      "hobbies": "football,basketball"
-    },
-    {
       "id": 3,
       "name": "jack",
       "gender": 1,
@@ -33,13 +26,6 @@
       "name": "john",
       "gender": 1,
       "age": 25,
-      "hobbies": "football,basketball"
-    },
-    {
-      "id": 5,
-      "name": "小乔",
-      "gender": 0,
-      "age": 16,
       "hobbies": "football,basketball"
     },
     {

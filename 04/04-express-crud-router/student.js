@@ -109,13 +109,12 @@ exports.deleteById = function (id, callback) {
       return callback(err)
     }
     let students = jsonObj.students
-    const len = students.length
 
     students = students.filter(item => item.id !== parseInt(id))
 
     jsonObj = {
       students: students,
-      count: jsonObj.count + students.length - len
+      count: jsonObj.count
     }
 
     JsonFs.writeJson(jsonObj, callback)
