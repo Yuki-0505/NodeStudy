@@ -10,7 +10,7 @@
   <meta name="author" content="">
   <!-- <link rel="icon" href="../../favicon.ico"> -->
 
-  <title>添加学生</title>
+  <title>编辑学生</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,10 +29,11 @@
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-        <form action="/students/new" method="post">
+        <form action="/students/edit" method="post">
+          <input type="hidden" name="id" value="{{ student.id }}">
           <div class="form-group">
             <label for="Email">姓名</label>
-            <input type="text" class="form-control" id="Email" placeholder="Name" name="name">
+            <input type="text" class="form-control" id="Email" placeholder="Name" name="name" value="{{ student.name }}">
           </div>
           <div class="form-group">
             <label>性别</label>
@@ -47,13 +48,12 @@
           </div>
           <div class="form-group">
             <label for="Age">年龄</label>
-            <input type="text" class="form-control" id="Age" placeholder="Age" name="age">
+            <input type="text" class="form-control" id="Age" placeholder="Age" name="age" value="{{ student.age }}">
           </div>
           <div class="form-group">
             <label for="Hobbies">爱好</label>
-            <input type="text" class="form-control" id="Hobbies" placeholder="Hobbies" name="hobbies">
+            <input type="text" class="form-control" id="Hobbies" placeholder="Hobbies" name="hobbies" value="{{ student.hobbies }}">
           </div>
-
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
 
