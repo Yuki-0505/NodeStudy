@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // ajax
+    function get(url, callback) {
+      const xhr = new XMLHttpRequest()
+      // 请求加载成功后调用指定函数
+      xhr.onload = function () {
+        // 将请求到的数据传给回调函数
+        callback(xhr.responseText)
+      }
+      // 建立连接
+      xhr.open('get', url, true)
+      // 发送请求
+      xhr.send()
+    }
+
+    /**
+     * 回调函数写法
+     * 依次获取两个接口的数据
+     */
+    get('http://localhost:3000/users', users => {
+      get('http://localhost:3000/jobs', jobs => {
+        console.log({users, jobs})
+      })
+    })
+  </script>
+  <script>
+    /**
+     * jquery写法
+     */
+    const data = {}
+    $.get('http://localhost:3000/users')
+      .then(users => {
+        data.users = users
+        return $.get('http://localhost:3000/jobs')
+      })
+      .then(jobs => {
+        data.jobs = jobs
+        console.log(data)
+      })
+  </script>
+</body>
+
+</html>

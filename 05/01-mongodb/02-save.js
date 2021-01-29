@@ -28,15 +28,19 @@ const userSchema = new Schema({
 // 返回值：模型构造函数
 const User = mongoose.model('User', userSchema)
 
+
+/**
+ * 新增数据
+ */
 // 实例化
 const admin = new User({
-  username: 'admin',
+  username: 'miss',
   password: '123456',
-  email: 'admin@admin.com'
+  email: 'miss@miss.com'
 })
-
+// 保存数据
 admin.save((err, ret) => {
-  if(err) {
+  if (err) {
     console.log('error.')
   } else {
     console.log('success')

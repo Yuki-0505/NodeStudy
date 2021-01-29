@@ -8,14 +8,18 @@ mongoose.connect('mongodb://localhost/test')
 // mongoose.Promise = global.Promise
 
 // 设计数据库中集合Cat结构
-const Cat = mongoose.model('Cat', { name: String })
+const Cat = mongoose.model('Cat', {
+  name: String
+})
 
 // 实例化一个Cat
-const kitty = new Cat({ name: 'miss' })
+const kitty = new Cat({
+  name: 'miss'
+})
 
 // 持久化保存
 kitty.save(err => {
-  if(err) {
+  if (err) {
     console.log(err)
   } else {
     console.log('successful.')

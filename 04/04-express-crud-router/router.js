@@ -30,12 +30,98 @@
 
 //     })
 // }
+// module.exports = router
 
 
 
 
 /**
  * 方式二
+ */
+// const express = require('express')
+
+// // 创建router容器
+// const router = express.Router()
+
+// // 获取Student对象
+// const Student = require('./student')
+
+// // 显示所有学生数据
+// router.get('/students', (req, res) => {
+//   // 回调函数，封装异步API
+//   Student.find((err, students) => {
+//     if (err) {
+//       // 链式语法
+//       return res.status(500).send('Server error.')
+//     }
+//     res.render('index.html', {
+//       students: students
+//     })
+//   })
+// })
+
+// // 渲染添加学生页面
+// router.get('/students/new', (req, res) => {
+//   res.render('new.html')
+// })
+
+// // 处理添加学生请求
+// router.post('/students/new', (req, res) => {
+//   // 1. 获取表单数据
+//   // console.log(req.body)
+//   // 2. 处理数据
+//   Student.save(req.body, err => {
+//     if (err) {
+//       return res.status(500).send('Server error.')
+//     }
+//   })
+//   // 3. 发送响应，重定向到首页
+//   res.redirect('/students')
+// })
+
+// // 渲染编辑页面
+// router.get('/students/edit', (req, res) => {
+//   Student.findById(req.query.id, (err, stu) => {
+//     if (err) {
+//       return res.status(500).send('Server error.')
+//     }
+//     res.render('edit.html', {
+//       student: stu
+//     })
+//   })
+// })
+
+// // 处理编辑请求
+// router.post('/students/edit', (req, res) => {
+//   // res.send(req.body)
+//   Student.updateById(req.body, err => {
+//     if (err) {
+//       return res.status(500).send('Server error.')
+//     }
+//   })
+//   // 3. 发送响应，重定向到首页
+//   res.redirect('/students')
+// })
+
+// // 处理删除请求
+// router.get('/students/delete', (req, res) => {
+//   Student.deleteById(req.query.id, err => {
+//     if (err) {
+//       return res.status(500).send('Server error.')
+//     }
+//   })
+//   res.redirect('/students')
+// })
+
+// // 导出router
+// module.exports = router
+
+
+
+
+
+/**
+ * 方式三，mongodb
  */
 const express = require('express')
 
@@ -69,11 +155,14 @@ router.post('/students/new', (req, res) => {
   // 1. 获取表单数据
   // console.log(req.body)
   // 2. 处理数据
-  Student.save(req.body, err => {
+  // 使用mongodb
+  const student = new Student(req.body)
+  student.save(err => {
     if (err) {
       return res.status(500).send('Server error.')
     }
   })
+
   // 3. 发送响应，重定向到首页
   res.redirect('/students')
 })
@@ -93,7 +182,7 @@ router.get('/students/edit', (req, res) => {
 // 处理编辑请求
 router.post('/students/edit', (req, res) => {
   // res.send(req.body)
-  Student.updateById(req.body, err => {
+  Student.findByIdAndUpdate(req.body.id, req.body, err => {
     if (err) {
       return res.status(500).send('Server error.')
     }
@@ -104,8 +193,8 @@ router.post('/students/edit', (req, res) => {
 
 // 处理删除请求
 router.get('/students/delete', (req, res) => {
-  Student.deleteById(req.query.id, err => {
-    if(err) {
+  Student.findByIdAndRemove(req.query.id, err => {
+    if (err) {
       return res.status(500).send('Server error.')
     }
   })
