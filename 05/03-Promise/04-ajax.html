@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 一、Ajax原理
+	Ajax异步http请求机制
+	同步：客户端（）---------http请求------》客户端（处理）
+		等待《--------------------------处理完毕
+		进行其他业务处理
+		问题：用户体验不好，卡顿
+			客户端这个页面刷新
+	Ajax技术：异步局部处理
+		局部刷新：返回结果只操作页面部分内容，div，span
+		同步：客户端（）---------http请求------》客户端（处理）
+		不等待《--------------------------处理完毕
+		继续处理
+	步骤
+	1、创建XMLHttpRequest对象
+		javascript对象，
+		var xhr = new XMLHttpRequest();
+	2、客户端和服务器建立连接
+		//true异步请求，false同步请求
+		xhr.open(method,url,true);
+	3、向服务器发送请求
+		xhr.send();//get
+		xhr.send(data);"name=king&age=20"//post
+	4、xhr监听状态和结果
+		xhr.readyState 当前发送请求的状态
+			0：XMLHttpRequest创建
+			1：和服务器进行了连接
+			2：向服务器发送请求
+			3：从服务器接收数据，没有接收完
+			4：客户端正确接收了数据
+		xhr.status 状态码 200 404 415 500
+		xhr.statusText 相应的文本信息
+		200 OK
+		404 Not Found
+		//设置回调函数，可以处理请求返回的数据
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				xhr.responseText	//服务器发送过来的文本
+				xhr.responseXML		//xml
+				//js局部刷新DOM
+			}
+		} -->
+
+  <script>
+    // 原生js
+    function validate() {
+      const xhr = new XMLHttpRequest()
+      //连接服务器，true表示异步请求
+      xhr.open('get', 'http://localhost:3000/users', true)
+      //发送请求
+      xhr.send()
+      //回调函数
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          const value = xhr.responseText
+          console.log(value)
+        }
+      }
+    }
+  </script>
+  <!-- 二、Jquery进行处理 -->
+  <script src="./public/lib/jquery.min.js"></script>
+  <script>
+    $(function () {
+      $.ajax({
+        contentType: 'application/x-www-form-urlencoded',
+        data: '',
+        dataType: 'text',
+        type: 'GET',
+        url: 'http://localhost:3000/jobs',
+        success: function (data) {
+          console.log(data);
+        }
+      })
+    })
+  </script>
+
+  <!-- 三、Json格式处理数据
+  success: function(data) {
+  var json = JSON.parse(data);
+  console.log(json);
+  } -->
+
+</body>
+
+</html>

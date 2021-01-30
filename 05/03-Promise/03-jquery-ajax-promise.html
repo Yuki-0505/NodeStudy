@@ -8,30 +8,45 @@
 </head>
 
 <body>
+  <script src="./public/lib/jquery.min.js"></script>
   <script>
-    // ajax
-    function get(url, callback) {
-      const xhr = new XMLHttpRequest()
-      // 请求加载成功后调用指定函数
-      xhr.onload = function () {
-        // 将请求到的数据传给回调函数
-        callback(xhr.responseText)
-      }
-      // 建立连接
-      xhr.open('get', url, true)
-      // 发送请求
-      xhr.send()
+    // promise ajax
+    function get(url) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        // 请求加载成功后调用指定函数
+        xhr.onload = function () {
+          // 将请求到的数据传给回调函数
+          resolve(xhr.responseText)
+        }
+        // 请求失败
+        xhr.onerror = function (err) {
+          reject(err)
+        }
+        // 建立连接
+        xhr.open('get', url, true)
+        // 发送请求
+        xhr.send()
+      })
     }
 
     /**
      * 回调函数写法
      * 依次获取两个接口的数据
      */
-    get('http://localhost:3000/users', users => {
-      get('http://localhost:3000/jobs', jobs => {
-        console.log({users, jobs})
+    // get('http://localhost:3000/users', users => {
+    //   get('http://localhost:3000/jobs', jobs => {
+    //     console.log(users, jobs)
+    //   })
+    // })
+    get('http://localhost:3000/users')
+      .then(users => {
+        console.log(users)
+        return get('http://localhost:3000/jobs')
       })
-    })
+      .then(jobs => {
+        console.log(jobs)
+      })
   </script>
   <script>
     /**
@@ -45,7 +60,7 @@
       })
       .then(jobs => {
         data.jobs = jobs
-        console.log(data)
+        console.log(JSON.stringify(data))
       })
   </script>
 </body>

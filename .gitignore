@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+# dist/ 所有目录下的dist文件夹，/dist/当前目录下的dist文件夹
 # /dist/
 dist/
 npm-debug.log*
