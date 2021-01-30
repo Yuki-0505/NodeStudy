@@ -9,6 +9,9 @@
 
 <body>
   <h2>注册</h2>
+  <!-- 表单默认提交方式时同步的，浏览器会锁死 -->
+  <!-- 服务端的重定向对异步请求无效 -->
+  <!-- <form id="register_form" action="/register" method="post"> -->
   <form id="register_form">
     <div for="">
       邮箱:<input type="text" name="email">
@@ -39,9 +42,12 @@
           console.log(data)
           const err_code = data.err_code
           if (err_code === 0) {
-            window.alert('注册成功！')
+            // window.alert('注册成功！')
+            window.location.href = '/'
           } else if (err_code === 1) {
-            window.alert('邮箱或昵称已存在！')
+            window.alert('邮箱已存在！')
+          } else if (err_code === 2) {
+            window.alert('昵称已存在！')
           } else if (err_code === 500) {
             window.alert('服务器正忙，请稍后重试！')
           }

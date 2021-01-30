@@ -1,5 +1,5 @@
 const express = require('express')
-const User = require('./models/user')
+const User = require('../models/user')
 const md5 = require('blueimp-md5')
 
 const router = express.Router()
@@ -44,7 +44,6 @@ router.get('/register', function (req, res) {
 //         message: 'Email or nickname already exists.'
 //       })
 //     }
-
 //     new User(body).save(function (err, user) {
 //       if (err) {
 //         return res.status(500).json({
@@ -59,6 +58,8 @@ router.get('/register', function (req, res) {
 //     })
 //   })
 // })
+
+
 // async异步 await等待
 router.post('/register', async function(req, res) {
   const body = req.body
@@ -83,18 +84,27 @@ router.post('/register', async function(req, res) {
     body.password = md5(md5(body.password))
     // 创建用户，注册
     await new User(body).save()
-
+    // 注册成功，记录状态
+    req.session.user = user
+    // 响应注册成功状态
     res.status(200).json({
       err_code: 0,
       message: 'Ok'
     })
-
   } catch (err) {
     res.status(500).json({
       err_code: 500,
       message: err.message
     })
   }
+})
+
+// 退出登录
+router.get('/logout', function(req, res) {
+  // 清除登录状态
+  req.session.user = null
+  // 重定向到登录页
+  res.redirect('/login')
 })
 
 module.exports = router
